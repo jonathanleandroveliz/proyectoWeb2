@@ -1,0 +1,23 @@
+<p> Bienvenido--->!!!! <span th:text="${usuario}" />
+
+<form action="#" th:action="@{nuevojugador}" th:object="${jugador}" method="post">
+
+	<p> NOMBRE: <input type="text" th:field="*{nombre}" /></p>
+	<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"> </p>
+	<p> APELLIDO: <input type="text" th:field="*{apellido}" /></p>
+	<p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"> </p>
+	<p> EDAD: <input type="text" th:field="*{edad}" /></p>
+	<p th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"> </p>
+	<p> PAIS: <input type="text" th:field="*{pais}" /></p>
+
+	<p> POSICION: <input type="text" th:field="*{posicion}" /></p>
+		
+	<p> CATEGORIA: <input type="text" th:field="*{categoria}" /></p>
+
+	<p> IMAGEN: <input type="text" th:field="*{imagen}" /></p>
+
+	<p> VALUACION: <input type="text" th:field="*{valuacion}" /></p>
+	<p th:if="${#fields.hasErrors('valuacion')}" th:errors="*{valuacion}"> </p>
+	
+		<input type="submit"/>
+</form>

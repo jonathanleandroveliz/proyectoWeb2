@@ -1,0 +1,17 @@
+<table>
+
+
+	<tr th:each="p : ${listaClub}">
+		<td th:text="${p.nombre}"></th>
+		<td th:text="${p.apodo}"></td>
+		<td th:text="${p.anio}"></td>
+		<td th:text="${p.imagen}"></td>
+		<td th:text="${p.presidente}"></td>
+		<td th:text="${p.tecnico.nombre}"></td>
+		<td th:text="${p.tecnico.apellido}"></td>
+		<td th:text="${p.tecnico.edad}"></td>
+		<td th:text="${p.tecnico.imagen}"></td>
+		<td th:text="${p.tecnico.cantidad}"></td>
+		
+		
+	</tr>
