@@ -26,4 +26,6 @@ public class ClubConverter {
 		return new Club(clubModelo.getId(), clubModelo.getNombre(), clubModelo.getApodo(),
 				clubModelo.getAnio(),clubModelo.getPresidente(),clubModelo.getImagen(), tecnicoConverter.modelToEntity(clubModelo.getTecnicomodelo()));
 	}
+
+	
 }

@@ -16,16 +16,33 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.proyectoWeb.converters.UsuarioConverter;
 import com.example.proyectoWeb.entities.UserRole;
+import com.example.proyectoWeb.models.UsuarioModelo;
 import com.example.proyectoWeb.repositories.IUserRepository;
+import com.example.proyectoWeb.services.IUserService;
 
 
 @Service("userService")
-public class UserService implements UserDetailsService {
+public class UserService implements IUserService,UserDetailsService {
 
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("usuarioConverter")
+	private UsuarioConverter usuarioConverter;
+	
+	@Override
+	public com.example.proyectoWeb.entities.User insertOrUpdate(com.example.proyectoWeb.entities.User usuario) {
+
+		com.example.proyectoWeb.entities.User user = null;
+		
+		userRepository.save(usuario);
+
+		return user;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

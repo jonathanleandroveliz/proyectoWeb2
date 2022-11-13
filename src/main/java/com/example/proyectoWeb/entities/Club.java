@@ -1,6 +1,7 @@
 package com.example.proyectoWeb.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -51,6 +53,12 @@ public class Club {
     @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
 	private Tecnico tecnico;
 	
+	@OneToOne(mappedBy = "club")
+	private Manager manager; 
+	
+	@OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Jugador> jugador;
+	
 	public Club()
 	{}
 
@@ -75,6 +83,51 @@ public class Club {
 		this.presidente = presidente;
 		this.imagen = imagen;
 		this.tecnico = tecnico;
+	}
+	
+	
+
+	public Club(int id, String nombre, String apodo, int anio, String presidente, String imagen, Tecnico tecnico,
+			List<Jugador> jugador) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apodo = apodo;
+		this.anio = anio;
+		this.presidente = presidente;
+		this.imagen = imagen;
+		this.tecnico = tecnico;
+		this.jugador = jugador;
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
+	public List<Jugador> getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(List<Jugador> jugador) {
+		this.jugador = jugador;
+	}
+
+	public Club(int id, String nombre, String apodo, int anio, String presidente, String imagen, Tecnico tecnico,
+			Manager manager, List<Jugador> jugador) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apodo = apodo;
+		this.anio = anio;
+		this.presidente = presidente;
+		this.imagen = imagen;
+		this.tecnico = tecnico;
+		this.manager = manager;
+		this.jugador = jugador;
 	}
 
 	public Tecnico getTecnico() {

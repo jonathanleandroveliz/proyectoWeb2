@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -47,6 +48,11 @@ public class Jugador {
 	@Column(name="valuacion")
 	private int valuacion;
 	
+	@ManyToOne
+	@JoinColumn(name = "club_id")
+	private Club club;
+
+	
 	@Column(name="creado")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -61,6 +67,23 @@ public class Jugador {
 	
 	
 	
+	public Jugador(int id, String nombre, String apellido, int edad, String pais, String posicion, String categoria,
+			String imagen, int valuacion, Club club) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.pais = pais;
+		this.posicion = posicion;
+		this.categoria = categoria;
+		this.imagen = imagen;
+		this.valuacion = valuacion;
+		this.club = club;
+	}
+
+
+
 	public Jugador(int id, String nombre, String apellido, int edad, String pais, String posicion, String categoria,
 			String imagen, int valuacion) {
 		super();
@@ -190,6 +213,19 @@ public class Jugador {
 	public void setValuacion(int valuacion) {
 		this.valuacion = valuacion;
 	}
+	
+	
+	public Club getClub() {
+		return club;
+	}
+
+
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
+
+
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

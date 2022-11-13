@@ -1,5 +1,6 @@
 package com.example.proyectoWeb.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,29 @@ public class JugadorService implements IJugadorService {
 		Jugador jugador = jugadorRepository.save(jugadorConverter.modelToEntity(jugadorModelo));
 
 		return jugadorConverter.entityToModel(jugador);
+	}
+	
+	
+	public JugadorModelo traerPorId(int id) {
+		
+		
+		return jugadorConverter.entityToModel(jugadorRepository.findById(id));
+		
+	};
+
+	public List<JugadorModelo> getAllModel(){
+
+		List<JugadorModelo> listaDeJugadores= new ArrayList<JugadorModelo>();
+
+		for (Jugador p:getAll() ) {
+
+			listaDeJugadores.add(jugadorConverter.entityToModel(p));
+
+
+		}
+
+
+		return listaDeJugadores;
 	}
 
 	@Override

@@ -1,0 +1,103 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>ArmaTuEquipoYA  | Creación de Tecnico</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal"></header>
+
+    <main role="main">   
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Datos del Tecnico</strong></h4>              
+          <div class="card-body">
+             	 <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+     th:text="${mensaje}"
+     class="alert">
+	 </div>  
+            <form th:action="@{/jugador/nuevotecnico}" th:object="${tecnico}" method="post" enctype="multipart/form-data">  
+             
+              <div th:if="${#fields.hasErrors('*')}"class='alert alert-danger' role='alert'>
+				Por favor corrija los siguientes errores:
+				<ul>
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+				</ul>
+			  </div>	
+                       
+              <div class="row">
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{nombre}"  id="nombre" name="nombre" placeholder="Nombre" required="required">
+                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"> </p>
+                  </div>
+                </div>
+                <div class="col-md-9"> 
+                  <div class="form-group">
+                    <label for="descripcion">Apellido</label>
+                    <input type="text" class="form-control" th:field="*{apellido}" id="descripcion" name="descripcion" placeholder="Apellido" required="required">
+                    <p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"> </p>
+                  </div> 
+                </div>    
+              </div>    
+              <div class="row">
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="estatus">Edad</label>
+						<input type="text" class="form-control" th:field="*{edad}" id="descripcion" name="descripcion" placeholder="Edad" required="required">
+						<p th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"> </p>
+                  </div>
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="fecha">Pais</label>
+                    <input type="text" class="form-control" th:field="*{pais}"  name="pais" id="pais" placeholder="Pais" required="required">
+                  </div>  
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                  	<label for="fecha">Cantidad De titulos</label>
+                    <input type="text" class="form-control"  th:field="*{cantidad}"  name="destacado" id="destacado" placeholder="Valuacion" required="required">
+                    <p th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"> </p>
+                  </div>
+                </div>
+                 <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label>Imagen</label>
+                    <input type="file" class="form-control-file" name="file" id="imagen"/>
+                  </div>
+                </div>
+              </div>    
+              <hr>
+              <button type="submit" class="btn btn-primary">Guardar</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer th:insert="fragments/footer :: pie-pagina" class="footer"></footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>
+</html>

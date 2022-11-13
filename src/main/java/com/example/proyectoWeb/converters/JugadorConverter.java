@@ -10,7 +10,7 @@ public class JugadorConverter {
 	
 	public JugadorModelo entityToModel(Jugador jugador) {
 
-		return new JugadorModelo(jugador.getNombre(), jugador.getApellido() ,jugador.getEdad(), jugador.getPais(),
+		return new JugadorModelo(jugador.getId(),jugador.getNombre(), jugador.getApellido() ,jugador.getEdad(), jugador.getPais(),
 				jugador.getPosicion(),jugador.getCategoria(), jugador.getImagen(), jugador.getValuacion());
 
 

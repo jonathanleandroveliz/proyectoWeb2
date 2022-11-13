@@ -38,9 +38,10 @@ public class JugadorModelo {
 	public JugadorModelo() 
 	{}
 
-	public JugadorModelo(String nombre, String apellido,int edad, String pais, String posicion, String categoria,
+	public JugadorModelo(int id,String nombre, String apellido,int edad, String pais, String posicion, String categoria,
 			String imagen,int valuacion) {
 		super();
+		this.id=id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -51,18 +52,6 @@ public class JugadorModelo {
 		this.valuacion = valuacion;
 	}
 	
-	
-	
-	public JugadorModelo(@Size(min = 3, max = 14) String nombre, @Size(min = 3, max = 14) String apellido,
-			@Min(0) int edad, String pais, String categoria, String imagen) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.edad = edad;
-		this.pais = pais;
-		this.categoria = categoria;
-		this.imagen = imagen;
-	}
 
 	public JugadorModelo(int id, @Size(min = 3, max = 14) String nombre, @Size(min = 3, max = 14) String apellido,
 			@Min(0) int edad, String pais, String categoria) {
@@ -73,6 +62,17 @@ public class JugadorModelo {
 		this.edad = edad;
 		this.pais = pais;
 		this.categoria = categoria;
+	}
+	
+	
+
+	public JugadorModelo(@Size(min = 3, max = 14) String nombre, @Size(min = 3, max = 14) String apellido,
+			@Min(0) int edad, String pais) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.pais = pais;
 	}
 
 	public int getId() {
@@ -149,11 +149,12 @@ public class JugadorModelo {
 
 	@Override
 	public String toString() {
-		return "JugadorModelo , nombre=" + nombre + ", apellido=" + apellido + ", edad="
-				+ edad + ", pais=" + pais + ", posicion=" + posicion + ", categoria=" + categoria + ", imagen=" + imagen
+		return "JugadorModelo [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad
+				+ ", pais=" + pais + ", posicion=" + posicion + ", categoria=" + categoria + ", imagen=" + imagen
 				+ ", valuacion=" + valuacion + "]";
 	}
-	
+
+
 	
 	
 }

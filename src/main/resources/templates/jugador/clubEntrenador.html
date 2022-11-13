@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>ArmaTuEquipoYA  | Club Y Emtrenador</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal"></header>
+
+    <main role="main">   
+      <hr>
+      <div class="container"> 
+		<h2 class="font-weight-bold text-center text-capitalize">CLUB Y TECNICO</h2>
+       	<table class="table table-striped table-bordered table-hover">
+	  <tr>
+		<th>Nombre</th>
+		<th>Apodo</th>
+		<th>Anio</th>
+		<th>Imagen Club</th>
+		<th>Presidente</th>
+		<th>Nombre Tecnico</th>
+		<th>Apelldio Tecnico</th>
+		<th>Imagen Tecnico</th>
+		<th>Cantidad De titulos</th>
+	  </tr>
+	  
+	  <tr th:each="p : ${listaClub}">
+
+	   	<td th:text="${p.nombre}"></th>
+		<td th:text="${p.apodo}"></td>
+		<td th:text="${p.anio}"></td>
+		<td th:text="${p.imagen}"></td>
+		<td th:text="${p.presidente}"></td>
+		<td th:text="${p.tecnico.nombre}"></td>
+		<td th:text="${p.tecnico.apellido}"></td>
+		<td th:text="${p.tecnico.imagen}"></td>
+		<td th:text="${p.tecnico.cantidad}"></td>
+	    
+	  
+	  </tr>
+	 
+	</table> 
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer th:insert="fragments/footer :: pie-pagina" class="footer"></footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>
+</html>

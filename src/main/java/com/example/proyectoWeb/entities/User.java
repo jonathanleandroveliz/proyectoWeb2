@@ -48,7 +48,7 @@ public class User {
 
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
-	
+
 
 	
 	public User(int id, String username) {

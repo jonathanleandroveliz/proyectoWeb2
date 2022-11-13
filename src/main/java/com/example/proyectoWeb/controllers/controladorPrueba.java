@@ -47,12 +47,6 @@ public class controladorPrueba {
 		
 	} 
 	
-	@GetMapping("seis")
-	public String iniciandoElCursos6() {
-		
-			return ViewRouteHelper.TABLA_JUGADOR;
-		
-		
-	} 
+
 
 }
