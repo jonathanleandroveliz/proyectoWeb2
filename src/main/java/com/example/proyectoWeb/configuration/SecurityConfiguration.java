@@ -20,17 +20,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	//Así deberia hacerse ahora:
 	//https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
-
-
+	
+	
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
-
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()

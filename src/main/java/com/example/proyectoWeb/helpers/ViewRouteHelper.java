@@ -23,6 +23,10 @@ public class ViewRouteHelper {
 	public final static String tecnico_FORM = "formularios/formularioTecnico";
 	public final static String JUGADOR_FORM = "formularios/formularioJugador";
 	public final static String club_FORM = "formularios/formularioClub";
+	//TECNICO
+	public final static String lista_tecnico = "tecnico/listaTecnico";
+	
+	public final static String paises = "paises/lospaises";
 	
 	
 

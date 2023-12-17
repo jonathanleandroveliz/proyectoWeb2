@@ -50,7 +50,7 @@
 	    		<td th:text="${jugador.posicion}"></td>
 	    		<td th:text="${jugador.categoria}"></td>
 	    		<td>
-	    	<img th:src="@{/images/{img} ( img=${jugador.imagen} )  }" style="max-width: 15%">
+	    	<img th:alt="${jugador.imagen}" th:src="@{'/images/' + ${jugador.imagen}}" style="max-width: 15%">
 	    </td>
 	    <td th:text="${jugador.valuacion}"></td>
                 </tr>                                              

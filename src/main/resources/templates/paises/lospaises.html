@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Países Aleatorios</title>
+</head>
+<body>
+    <h2>Lista de 15 Países Aleatorios</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Capital</th>
+                <th>Region</th>
+                <th>Poblacion</th>
+                <th>Bandera</th>
+                <th>Simbolodo Moneda</th>
+                <th>Zona Horaria</th>
+                <th>Idioma</th>   
+                <th>Traduccion</th>   
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pais : ${paises}">
+                <td th:text="${pais.name}"></td>
+                <td th:text="${pais.capital}"></td>
+                <td th:text="${pais.region}"></td>
+                <td th:text="${#numbers.formatDecimal({pais.population}, 1, 0, 'COMMA')}"></td>
+                <td>
+                 <img th:src="${pais['flags']['png']}" alt="Bandera de ${pais['name']}" style="max-width: 15%"/>
+                </td>
+                <td th:text="${pais.currencies[0].name}"></td>
+                <td th:text="${pais.timezones}"></td>
+                <td th:text="${pais.languages[0].name}"></td>
+                <td th:text="${pais.translations.fa}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

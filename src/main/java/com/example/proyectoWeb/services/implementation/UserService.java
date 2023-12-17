@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.proyectoWeb.converters.UsuarioConverter;
 import com.example.proyectoWeb.entities.UserRole;
@@ -35,15 +36,26 @@ public class UserService implements IUserService,UserDetailsService {
 	private UsuarioConverter usuarioConverter;
 	
 	@Override
+	
 	public com.example.proyectoWeb.entities.User insertOrUpdate(com.example.proyectoWeb.entities.User usuario) {
 
-		com.example.proyectoWeb.entities.User user = null;
-		
-		userRepository.save(usuario);
+        
+        UserRole userRole = new UserRole();
+        userRole.setUser(usuario);
+        userRole.setRole("ROLE_USER"); 
 
-		return user;
+        Set<UserRole> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+
+        usuario.setUserRoles(userRoles);
+
+        
+        com.example.proyectoWeb.entities.User user = userRepository.save(usuario);
+
+        return user;
 	}
-
+	
+		
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 com.example.proyectoWeb.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);

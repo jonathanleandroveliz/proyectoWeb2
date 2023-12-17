@@ -56,8 +56,8 @@ public class JugadorControladorRest {
 	public ResponseEntity<List<JugadorModelo>> todasLasPersonas(){
 
 		List<JugadorModelo> jugador = new ArrayList<JugadorModelo>();
-		jugador.add(new JugadorModelo("Nico","Fernandez" ,33, "Argentina"));
-		jugador.add(new JugadorModelo("Brenda","Natali", 48, "Brasil"));
+		jugador.add(new JugadorModelo("Nico","Otamendi" ,33, "Argentina"));
+		jugador.add(new JugadorModelo("Vinicius","Jr", 23, "Brasil"));
 
 		return new ResponseEntity<List<JugadorModelo>>(jugador, HttpStatus.OK);
 
