@@ -99,6 +99,11 @@ public class UserRole {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
+	
+	 public UserRole(User user, String role) {
+	        this.user = user;
+	        this.role = role;
+	    }
 
 	public UserRole() {
 		super();

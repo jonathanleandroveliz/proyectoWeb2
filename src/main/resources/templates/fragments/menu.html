@@ -1,24 +1,29 @@
 <nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" th:href="@{/}">ArmaTuEquipoYA</a>
+  <a class="navbar-brand" >ArmaTuEquipoYA</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto align-items-center">
       <li class="nav-item">
         <a class="nav-link" th:href="@{/jugador/listajugadores}">Jugadores</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" th:href="@{/tecnico/listatecnico}">Tecnicos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" th:href="@{/inicio/club}">Club y Entrenador</a>
       </li>   
        <li class="nav-item">
         <a class="nav-link" th:href="@{/jugador/crudJugadores}">CRUD JUGADORES</a>
-      </li>       
+      </li>        
     </ul>  
+    <!-- <p> Bienvenido !!! <span th:text="${usuario}" th:with="usuario=${usuario}"></span></p> -->
     <a class="btn btn-primary" th:href="@{/login}">Ingresar</a>&nbsp;
     <a class="btn btn-primary" th:href="@{/jugador/crearUsuario}">Registrarse</a>
      <a class="btn btn-primary" th:href="@{/inicio/index}">Volver Inicio</a>
+   
   </div>
 </nav>
 

@@ -63,3 +63,7 @@ button{
 .forgot a{
     color: white;
 }
+
+.my-custom-link {
+    display: none; /* Por defecto, oculta el enlace */
+}

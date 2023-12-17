@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+   
 
     <title>ArmaTuEquipoYA  | Creación de Tecnico</title>
     <!-- Bootstrap core CSS -->
@@ -31,6 +31,7 @@
      th:text="${mensaje}"
      class="alert">
 	 	</div>  
+	 	
             <form th:action="@{/jugador/nuevojugador}" th:object="${jugador}" method="post" enctype="multipart/form-data">  
              
               <div th:if="${#fields.hasErrors('*')}"class='alert alert-danger' role='alert'>
@@ -38,7 +39,9 @@
 				<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
 				</ul>
-			  </div>	
+			  </div>
+			  
+			  <input type="hidden" th:field="*{id}" />	
                        
               <div class="row">
                 <div class="col-md-3"> 
@@ -50,8 +53,8 @@
                 </div>
                 <div class="col-md-9"> 
                   <div class="form-group">
-                     <label for="descripcion">Apellido</label>
-                    <input type="text" class="form-control" th:field="*{apellido}" id="descripcion" name="descripcion" placeholder="Apellido" required="required">
+                     <label for="apellido">Apellido</label>
+                    <input type="text" class="form-control" th:field="*{apellido}" id="apellido" name="apellido" placeholder="Apellido" required="required">
                     <p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"> </p>
                   </div> 
                 </div>    
@@ -71,8 +74,8 @@
 
                 <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="estatus">Categoria</label>
-                    <select class="form-control" th:field="*{categoria}" name="estatus" id="estatus">
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" th:field="*{categoria}" name="categoria" id="categoria">
 					  <option value="Titular">Titular</option>
                       <option value="Suplente">Suplente</option>
                       <option value="Juvenil">Juvenil</option>
@@ -82,13 +85,13 @@
                 </div>
                 <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="fecha">Edad</label>
+                    <label for="edad">Edad</label>
                     <input type="text" class="form-control" th:field="*{edad}" name="edad" id="edad" placeholder="edad" required="required">
                   </div>  
                 </div>
                 <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="fecha">Pais</label>
+                    <label for="pais">Pais</label>
                     <input type="text" class="form-control" th:field="*{pais}" name="pais" id="pais" placeholder="pais" required="required">
                   </div>
                 </div>
@@ -96,14 +99,14 @@
               <div class="row">
                 <div class="col-md-3"> 
                  <div class="form-group">
-                    <label for="fecha">Valuacion</label>
+                    <label for="valuacion">Valuacion</label>
                     <input type="text" class="form-control" th:field="*{valuacion}" name="valuacion" id="valuacion" placeholder="valuacion" required="required">
                   </div>
                 </div> 
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="imagen">Imagen</label>
-                    <input type="file" class="form-control-file" name="file" id="imagen">
+                   <input class="form-control" type="file" name="file" id="imagen"/>
                   </div>
                 </div>
               	</div>

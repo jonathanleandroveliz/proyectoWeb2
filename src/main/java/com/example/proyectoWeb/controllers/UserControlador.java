@@ -29,17 +29,18 @@ public class UserControlador {
 		return ViewRouteHelper.USER_LOGIN;
 	}
 
-	@RequestMapping(value="/logout", method=RequestMethod.GET)  
+	
+    @RequestMapping(value="/logout", method=RequestMethod.GET)  
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {  
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
         if (auth != null){      
            new SecurityContextLogoutHandler().logout(request, response, auth);  
         }  
          return ViewRouteHelper.USER_LOGOUT; 
-     }  
+     }   
 
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
-		return "redirect:/jugador/crearJugador";
+		return "redirect:/jugador/crearTecnico";
 	}
 }

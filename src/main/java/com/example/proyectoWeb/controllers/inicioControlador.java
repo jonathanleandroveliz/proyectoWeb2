@@ -2,6 +2,7 @@ package com.example.proyectoWeb.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +24,8 @@ import com.example.proyectoWeb.models.TecnicoModelo;
 import com.example.proyectoWeb.services.IClubService;
 import com.example.proyectoWeb.services.IJugadorService;
 import com.example.proyectoWeb.services.ITecnicoService;
+
+import antlr.collections.List;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -51,13 +54,15 @@ public class inicioControlador {
 	@GetMapping("/index")
 	public ModelAndView  inicio() {
 		
-		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView mV = new ModelAndView();
 		mV.addObject("listaJugador",jugadorService.getAll());
+		mV.addObject("usuario", user.getUsername());
 		mV.setViewName(ViewRouteHelper.inicio);
-		
 		return mV;
 	}
+	
+	
 	
 	@GetMapping("/club")
 	public ModelAndView  club() {

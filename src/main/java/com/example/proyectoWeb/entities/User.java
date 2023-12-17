@@ -46,8 +46,8 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
-	private Set<UserRole> userRoles = new HashSet<UserRole>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<UserRole> userRoles;
 
 
 	

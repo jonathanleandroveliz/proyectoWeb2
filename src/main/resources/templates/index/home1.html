@@ -16,23 +16,25 @@
   </head>
 
   <body>
-	<header th:insert="fragments/menu :: menu-principal"></header>
+	<header th:insert="fragments/menu :: menu-principal" th:with="usuario=${usuario}"></header>
 
     <main role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
+         <div class="welcome text-right">
+            <p>Bienvenido, <span th:text="${usuario}" th:with="usuario=${usuario}">Usuario</span>!</p>
+        </div>
           <h3>Arma el equipo de futbol que andas buscando.</h3>
           Puedes crear ya jugadores , tecnicos el nombre del equipo y manager
          <div class="rowform-check form-check-inline">
-          <a class="nav-link" th:href="@{/jugador/crearJugador}">Crea tu jugador</a>
+          <a class="nav-link my-custom-link" th:href="@{/jugador/crearJugador}">Crea tu jugador</a>
      	 </div>
      	 <div class="form-check form-check-inline">
           <a class="nav-link" th:href="@{/jugador/crearTecnico}">Crea tu tecnico</a>
      	 </div>
         </div>
-
       </div>
       
       <hr>
@@ -79,8 +81,24 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>     
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:inline="javascript">
+	var cantidadJugadores = $('.table tbody tr').length;
+	console.log(cantidadJugadores);
+
+	if (cantidadJugadores >= 12) {
+    $('.my-custom-link').prop('disabled', true); 
+    $('.my-custom-link').on('click', function(event) {
+        event.preventDefault(); 
+        alert('Se ha alcanzado el límite de 11 jugadores.'); 
+    });
+} else {
+    $('.my-custom-link').prop('disabled', false); 
+    $('.my-custom-link').off('click'); 
+}
+    </script>    
+ 
   </body>
 </html>
 

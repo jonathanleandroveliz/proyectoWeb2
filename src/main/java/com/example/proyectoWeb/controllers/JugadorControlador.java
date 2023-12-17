@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +41,7 @@ import com.example.proyectoWeb.services.IJugadorService;
 import com.example.proyectoWeb.services.ITecnicoService;
 import com.example.proyectoWeb.services.IUserService;
 import com.example.proyectoWeb.services.implementation.UserService;
+import com.example.proyectoWeb.entities.UserRole;
 import com.example.proyectoWeb.helpers.ViewRouteHelper;
 
 @Controller
@@ -61,7 +65,7 @@ public class JugadorControlador {
 	private IUserService userService;
 	
 	
-	@PreAuthorize("hasRole('ROLE_1')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/crearTecnico")
 	public ModelAndView  crearTecnico(Model model) {	
 
@@ -109,8 +113,8 @@ public class JugadorControlador {
 		mV.setViewName(ViewRouteHelper.tecnico_FORM);
 		mV.addObject("tecnico", tecnico);
 		
-		//Podríamos tambien agregarle las personas que tenemos en la BD
-		//mV.addObject("listaTecnico",tecnicoService.getAll());
+		
+		mV.addObject("listaTecnico",tecnicoService.getAll());
 		}
 		
 		return "redirect:/jugador/crearTecnico";
@@ -123,6 +127,7 @@ public class JugadorControlador {
 
 		com.example.proyectoWeb.entities.User usuario = new com.example.proyectoWeb.entities.User();
 		model.addAttribute("usuario", usuario);
+		usuario.setEnabled(true); 
 		//User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.usuario_form);
 		//modelAndView.addObject("usuario", user.getUsername());
@@ -138,7 +143,8 @@ public class JugadorControlador {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 	String password = pe.encode(usuario.getPassword());
 	usuario.setPassword(password);
-		
+	usuario.setEnabled(true);
+	 
 	userService.insertOrUpdate(usuario);
 	redirectAttrs
     .addFlashAttribute("mensaje", "Usuario creado correctamente")
@@ -150,7 +156,8 @@ public class JugadorControlador {
 				
 	}
 	
-	@PreAuthorize("hasRole('ROLE_2')")
+	
+	//@PreAuthorize("hasRole('ROLE_2')")
 	@GetMapping("/crearJugador")
 	public ModelAndView  crearJugador(Model model) {	
 
@@ -163,14 +170,34 @@ public class JugadorControlador {
 		return modelAndView;	
 	}
 	
+	@GetMapping("/editarJugador/{id}")
+	public ModelAndView  editarJugador(@PathVariable("id")int id, Model model , RedirectAttributes redirectAttributes) {	
+		
+		
+		
+		JugadorModelo jugador = jugadorService.traerPorId(id);
+		//jugador.setId(id);
+		model.addAttribute("jugador", jugador);
+		
+			System.out.println("------ editar jugador" + jugador);
+			System.out.println("------ editar jugador" + jugador.getImagen());	
+
+		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.JUGADOR_FORM);
+		
+		return modelAndView;	
+	}
+	
 	@PostMapping("/nuevojugador")
 	public String nuevoJugador(@Valid @ModelAttribute("jugador")JugadorModelo jugador,
-			BindingResult b, @RequestParam("file") MultipartFile imagen,RedirectAttributes redirectAttrs) {
-		System.out.println("---->>>" + jugador);
+			BindingResult b, @RequestParam("file") MultipartFile imagen, RedirectAttributes redirectAttrs) {
+		
+		System.out.println(" actualizar---->>>" + jugador);
 		ModelAndView mV = new ModelAndView();
 		if(b.hasErrors()) {
 			mV.setViewName(ViewRouteHelper.JUGADOR_FORM);
+			
 		}else {
+			
 			if(!imagen.isEmpty()) {
 				
 				Path directorioImagenes = Paths.get("src//main//resources//static/images");
@@ -184,43 +211,37 @@ public class JugadorControlador {
 					
 					jugador.setImagen(imagen.getOriginalFilename());
 					
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			
-		
-		jugadorService.insertOrUpdate(jugador); 
-		redirectAttrs
-        .addFlashAttribute("mensaje", "Jugador agregado correctamente")
-        .addFlashAttribute("clase", "success");
-		mV.setViewName(ViewRouteHelper.JUGADOR_FORM);
-		mV.addObject("jugador", jugador);
-		
-		//Podríamos tambien agregarle las personas que tenemos en la BD
-		//mV.addObject("listaJugador",jugadorService.getAll());
-		}
-		
-		return "redirect:/jugador/crearJugador";
-		}	
-	
-	
-	
-	@GetMapping("/editarJugador/{id}")
-	public ModelAndView  editarJugador(@PathVariable("id")int id, Model model) {	
-		
-		
-		
-		JugadorModelo jugador = jugadorService.traerPorId(id);
-		//jugador.setId(id);
-		model.addAttribute("jugador", jugador);
-			System.out.println("------ " + jugador);	
+			boolean esNuevo = (jugador.getId() == 0);
+			jugadorService.insertOrUpdate(jugador); 
+			 if (esNuevo) {
+		            redirectAttrs
+		                    .addFlashAttribute("mensaje", "Nuevo jugador agregado correctamente")
+		                    .addFlashAttribute("clase", "success");
+		        } else {
+		            redirectAttrs
+		                    .addFlashAttribute("mensaje", "Jugador actualizado correctamente")
+		                    .addFlashAttribute("clase", "success");
+		        }
 
-		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.JUGADOR_FORM);
+
+			mV.setViewName(ViewRouteHelper.crud_jugador);
+			mV.addObject("jugador", jugador);
+			
 		
-		return modelAndView;	
+			mV.addObject("listaJugador",jugadorService.getAll());
+			}
+			
+			return "redirect:/jugador/crearJugador";
 	}
+	
+	
 	
 	@GetMapping("/eliminarJugador/{id}")
 	public ModelAndView  eliminarJugador(@PathVariable("id")int id, Model model) {	
@@ -260,7 +281,7 @@ public class JugadorControlador {
 		return mV;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_3')")
+	//@PreAuthorize("hasRole('ROLE_3')")
 	@GetMapping("/crudJugadores")
 	public ModelAndView  crudJugadores() {
 		

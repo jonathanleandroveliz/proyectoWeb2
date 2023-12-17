@@ -27,7 +27,7 @@
         <div class="card">
           <h4 class="card-header"><strong>Listado de mis Jugadores</strong></h4>              
           <div class="card-body">
-            <a class="btn btn-primary" th:href="@{/jugador/crearJugador}" title="Crear un nuevo jugador" role="button"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</a>            
+            <a class="btn btn-primary my-custom-link" th:href="@{/jugador/crearJugador}" title="Crear un nuevo jugador" role="button"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</a>            
             <hr>
             <table class="table table-hover">
               <thead class="thead-light">
@@ -46,13 +46,13 @@
           		 <tr th:each="p : ${listaJugador}">
 
 	   			<td th:text="${p.nombre}"></td>
-	    		<td th:text="${p.edad}"></td>
 	    		<td th:text="${p.apellido}"></td>
+	    		<td th:text="${p.edad}"></td>
 	    		<td th:text="${p.pais}"></td>
 	    		<td th:text="${p.posicion}"></td>
 	    		<td th:text="${p.categoria}"></td>
 	    		<td>
-	    	<img th:src="@{/images/{img} ( img=${p.imagen} )  }" style="max-width: 15%">
+	    	<img  th:alt="${p.imagen}" th:src="@{'/images/' + ${p.imagen}}"  style="max-width: 15%">
 	    </td>
 	    <td th:text="${p.valuacion}"></td>
                   <td>
@@ -73,7 +73,22 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>     
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:inline="javascript">
+	var cantidadJugadores = $('.table tbody tr').length;
+	console.log(cantidadJugadores);
+
+	if (cantidadJugadores >= 11) {
+    $('.my-custom-link').prop('disabled', true); 
+    $('.my-custom-link').on('click', function(event) {
+        event.preventDefault();
+        alert('Se ha alcanzado el límite de 11 jugadores.'); 
+    });
+} else {
+    $('.my-custom-link').prop('disabled', false); 
+    $('.my-custom-link').off('click'); 
+}
+    </script>    
   </body>
 </html>
